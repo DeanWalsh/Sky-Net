@@ -3,3 +3,14 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+body {
+
+    overflow: hidden;
+
+    canvas{
+        background-color: rgb(97, 97, 202);
+        width: 30vw;
+        height: 30vh;
+    }
+}

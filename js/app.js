@@ -2,8 +2,14 @@ window.addEventListener("load", () => {
     let long;
     let lat;
 
-    let air_temps = document.querySelector(".air_temp");
-    let location = document.querySelector(".location");
+    let citydiv = document.querySelector(".city");
+    let localitydiv = document.querySelector(".locality");
+    let countrydiv = document.querySelector(".country");
+
+    let temperaturediv = document.querySelector(".temperature");
+    let humiditydiv = document.querySelector(".humidity");
+    let winddirdiv = document.querySelector(".winddir");
+    let windspeeddiv = document.querySelector(".windspeed");
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -22,6 +28,9 @@ window.addEventListener("load", () => {
                 console.log(city);
                 console.log(country);
                 console.log(locality);
+                citydiv.textContent = city;
+                localitydiv.textContent = locality;
+                countrydiv.textContent = country;
             })
 
             fetch(weatherApi)
@@ -36,6 +45,10 @@ window.addEventListener("load", () => {
                 console.log(humidity+"%");
                 console.log(winddirection+"°");
                 console.log(windspeed+"m/s");
+                temperaturediv.textContent = (temperature+"°C");
+                humiditydiv.textContent = (humidity+"%");
+                winddirdiv.textContent = (winddirection+"°");
+                windspeeddiv.textContent = (windspeed+"m/s");
             })
 
         });

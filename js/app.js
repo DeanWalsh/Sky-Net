@@ -1,6 +1,7 @@
 window.addEventListener("load", () => {
     let long;
     let lat;
+
     let air_temps = document.querySelector(".air_temp");
     let location = document.querySelector(".location");
 
@@ -12,23 +13,31 @@ window.addEventListener("load", () => {
             var locationApi = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${long}&localityLanguage=en`;
 
             fetch(locationApi)
-            .then(response => {
-                return response.json();
+            .then((response) => response.json())
+            .then((ldata) => {
+                console.log(ldata);
+                let city = ldata.city;
+                let country = ldata.countryName;
+                let locality = ldata.locality;
+                console.log(city);
+                console.log(country);
+                console.log(locality);
             })
-            .then(data => {
-                const {city} = data;
-                location.textContent = city;
-            });
-            
+
             fetch(weatherApi)
-            .then(response => {
-                return response.json();
+            .then((response) => response.json())
+            .then((wdata) => {
+                console.log(wdata);
+                let temperature = wdata.properties.timeseries[0].data.instant.details.air_temperature;
+                let humidity = wdata.properties.timeseries[0].data.instant.details.relative_humidity;
+                let winddirection = wdata.properties.timeseries[0].data.instant.details.wind_from_direction;
+                let windspeed = wdata.properties.timeseries[0].data.instant.details.wind_speed;
+                console.log(temperature+"°C");
+                console.log(humidity+"%");
+                console.log(winddirection+"°");
+                console.log(windspeed+"m/s");
             })
-            .then(data => {
-                const {air_temperature} = data.properties.timeseries[0].data.instant.details;
-                air_temps.textContent = air_temperature;
-            });
+
         });
     }
-    
 });
